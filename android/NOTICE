@@ -1,0 +1,15 @@
+Copyright (c) 2019 TIM S.p.A.
+
+== Declared Project Licenses
+
+This program is made available under the terms of MIT License
+
+== Third-party Content
+
+elaconnectorlib
+* License: see LICENSE file in app/libs/elaconnectorlib-x.y.z-release.aar
+
+zxing
+* License: The Apache Software License, Version 2.0
+* Project: https://github.com/zxing/zxing
+* Source: https://github.com/zxing/zxing

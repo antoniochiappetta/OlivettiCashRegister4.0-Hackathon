@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/connect"
+        android:icon="@drawable/power_off"
+        android:title="@string/connect"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/elaResponse"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/last_responses"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/debug"
+        android:title="@string/diagnostics">
+
+        <menu>
+            <item
+                android:id="@+id/getStatusPrinter"
+                android:title="@string/get_status_printer" />
+
+            <item
+                android:id="@+id/getInfoPrinter"
+                android:title="@string/get_info_printer" />
+
+            <item
+                android:id="@+id/getStatusFiscmod"
+                android:title="@string/get_status_fiscmod" />
+
+            <item
+                android:id="@+id/voidFiscmod"
+                android:title="@string/void_fiscmod" />
+
+        </menu>
+    </item>
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings">
+
+        <menu>
+            <item
+                android:id="@+id/setIpAndPort"
+                android:title="@string/set_ip_and_port" />
+
+            <item
+                android:id="@+id/setConfigurationData"
+                android:title="@string/set_configuration_data" />
+
+            <item
+                android:id="@+id/setCashier"
+                android:title="@string/set_cashier_name" />
+
+            <item
+                android:id="@+id/setHeader"
+                android:title="@string/set_header" />
+
+            <item
+                android:id="@+id/setCouponType"
+                android:checkable="true"
+                android:checked="false"
+                android:title="@string/set_coupon_type" />
+        </menu>
+    </item>
+</menu>

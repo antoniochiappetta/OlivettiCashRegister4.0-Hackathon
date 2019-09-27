@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/generic_padding">
+
+        <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/actionFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/generic_padding"
+            android:layout_marginBottom="@dimen/generic_padding"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:src="@android:drawable/ic_input_add"
+            android:tint="@color/white"
+            app:elevation="0dp"
+            app:fabSize="mini"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!-- Uncomment to add discount manually -->
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/TextViewTitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/bill_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/deleteDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/generic_padding"
+            android:layout_marginBottom="@dimen/generic_padding"
+            android:backgroundTint="@color/colorPrimary"
+            android:src="@android:drawable/ic_delete"
+            android:tint="@color/white"
+            app:elevation="0dp"
+            app:fabSize="mini"
+            app:layout_constraintEnd_toStartOf="@id/deleteAll"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/deleteAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/generic_padding"
+            android:layout_marginBottom="@dimen/generic_padding"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:src="@android:drawable/ic_menu_delete"
+            app:elevation="0dp"
+            app:fabSize="mini"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/llFabMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/clHeader"
+        android:layout_marginStart="@dimen/generic_padding"
+        android:background="@drawable/button_bg_fab_options"
+        android:elevation="@dimen/generic_padding"
+        android:orientation="vertical"
+        android:padding="@dimen/generic_padding">
+
+        <LinearLayout
+            android:id="@+id/llAddDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="@string/fab_menu_add_discount"
+                android:textColor="@android:color/white"
+                android:typeface="normal" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/generic_padding"
+                android:src="@drawable/ic_attach_discount"
+                android:tint="@android:color/white"
+                app:fabSize="mini" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productsList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomLayout"
+        android:layout_below="@+id/clHeader"
+        android:layout_marginTop="@dimen/generic_padding"
+        android:layout_marginBottom="@dimen/generic_padding"
+        tools:itemCount="30"
+        tools:listitem="@layout/receipt_item" />
+
+    <TextView
+        android:id="@+id/noItemsTv"
+        style="@style/TextViewBig"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_items_available"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/generic_padding"
+            android:orientation="horizontal">
+
+            <Switch
+                android:id="@+id/switchPromo20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/generic_padding"
+                android:text="@string/print_promo_20" />
+
+            <Switch
+                android:id="@+id/switchPromo40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/generic_padding"
+                android:text="@string/print_promo_40" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/vatPercent"
+            style="@style/TextViewWhiteText.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/generic_padding"
+            android:layout_marginEnd="@dimen/generic_padding"
+            android:background="@color/colorPrimary"
+            android:gravity="end"
+            android:text="@string/discount_applied_percent"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/totalTv"
+            style="@style/TextViewWhiteText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/generic_padding"
+            android:layout_marginEnd="@dimen/generic_padding"
+            android:layout_marginBottom="@dimen/generic_padding"
+            android:background="@color/colorPrimary"
+            android:gravity="end"
+            android:text="@string/receipt_total" />
+
+        <Button
+            android:id="@+id/printReceiptButton"
+            style="@style/TextViewWhiteText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/generic_padding"
+            android:background="@drawable/button_bg_print"
+            android:text="@string/print_receipt" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frameProgress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent_black"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+</RelativeLayout>

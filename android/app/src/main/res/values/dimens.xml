@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="small_text_size">12sp</dimen>
+    <dimen name="normal_text_size">15sp</dimen>
+    <dimen name="big_text_size">18sp</dimen>
+    <dimen name="very_big_text_size">22sp</dimen>
+    <dimen name="presentation_text_view">70sp</dimen>
+    <dimen name="presentation_title_height">130sp</dimen>
+
+    <dimen name="generic_padding">10dp</dimen>
+    <dimen name="generic_padding_double">20dp</dimen>
+    <dimen name="generic_padding_triple">30dp</dimen>
+    <dimen name="generic_padding_quadruple">40dp</dimen>
+    <dimen name="generic_padding_quintuple">50dp</dimen>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape
+            android:innerRadiusRatio="2.5"
+            android:shape="ring"
+            android:thickness="3dp"
+            android:useLevel="false">
+
+            <solid android:color="@android:color/holo_green_dark"/>
+
+        </shape>
+    </item>
+    <item android:drawable="@drawable/ic_print_black_24dp"
+        android:right="8dp"
+        android:left="8dp"
+        android:top="8dp"
+        android:bottom="8dp">
+    </item>
+</layer-list>
