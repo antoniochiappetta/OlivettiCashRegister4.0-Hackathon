@@ -1,11 +1,12 @@
-package net.spaceify.realtimereceiptsexample.activities;
+package net.spaceify.realtimereceiptsexample.presentation;
 
+import android.app.Presentation;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.hardware.display.DisplayManager;
 import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
@@ -13,48 +14,39 @@ import android.widget.TextView;
 
 import net.spaceify.realtimereceiptsexample.R;
 import net.spaceify.realtimereceiptsexample.models.Discount;
-import net.spaceify.realtimereceiptsexample.presentation.DiscountsPresentation;
 import net.spaceify.realtimereceiptsexample.singletons.ConcurrencyManager;
 
 import java.util.ArrayList;
 
-public class DiscountsActivity extends AppCompatActivity {
+public class DiscountsPresentation extends Presentation {
+
+    // MARK: - Lifecycle
+
+    public DiscountsPresentation(Context outerContext, Display display) {
+        super(outerContext, display);
+    }
 
     // MARK: - Properties
 
-    private TextView textView;
+    private TextView textView = null;
     private DiscountsReceiver receiver;
-    private DiscountsPresentation discountsPresentation;
 
     // MARK: - Initialization
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_discounts);
+        setContentView(R.layout.activity_discounts_presentation);
 
         // Initialize text view
         this.textView = (TextView) findViewById(R.id.textView);
 
         // Start listening for discounts
         receiver = new DiscountsReceiver(new Handler());
-        registerReceiver(receiver, new IntentFilter("GET_PRODUCT_DISCOUNTS"));
-        System.out.println("DiscountsReceiver: I am LISTENING for discounts");
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, new IntentFilter("GET_PRODUCT_DISCOUNTS"));
+        System.out.println("DiscountsPresentation: I am LISTENING for discounts");
         synchronized (ConcurrencyManager.sharedLock) {
             ConcurrencyManager.sharedLock.notify();
-        }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        // Initialize presentation
-        DisplayManager displayManager = (DisplayManager) getApplicationContext().getSystemService(Context.DISPLAY_SERVICE);
-        Display[] presentationDisplays =  displayManager.getDisplays(DisplayManager.DISPLAY_CATEGORY_PRESENTATION);
-        if (presentationDisplays.length > 0) {
-            discountsPresentation = new DiscountsPresentation(this, presentationDisplays[0]);
-            discountsPresentation.show();
         }
     }
 
@@ -89,7 +81,7 @@ public class DiscountsActivity extends AppCompatActivity {
             if(intent.getAction().equals("GET_PRODUCT_DISCOUNTS"))
             {
                 final ArrayList<Discount> discounts = intent.getParcelableArrayListExtra("discounts");
-                System.out.println("DiscountsPresentationReceiver: I got a LIST discounts");
+                System.out.println("DiscountsReceiver: I got a LIST discounts");
                 System.out.println(discounts);
 
                 handler.post(new Runnable() {
