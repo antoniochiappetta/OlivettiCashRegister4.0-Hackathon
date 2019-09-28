@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import net.spaceify.realtimereceiptsexample.activities.DiscountsActivity;

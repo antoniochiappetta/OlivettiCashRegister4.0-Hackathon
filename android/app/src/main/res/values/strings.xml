@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">realtimereceiptsexample</string>
+    <string name="app_name">Mine The Bill</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="expiriration_date_1">Expires on 2019/10/31</string>
+    <string name="expiriration_date_2">Expires on 2019/11/12</string>
+    <string name="expiriration_date_3">Expires on 2019/10/06</string>
 </resources>
