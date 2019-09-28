@@ -35,30 +35,49 @@
 
     <ImageView
         android:id="@+id/imageViewSelected"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="20dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="100dp"
         android:contentDescription="@string/placeholder"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/button2"
         app:layout_constraintStart_toStartOf="@+id/button2"
         app:layout_constraintTop_toTopOf="@+id/button2"
-        app:layout_constraintVertical_bias="0.498"
-        app:srcCompat="@drawable/mine_the_bill"
-        tools:srcCompat="@drawable/mine_the_bill" />
+        app:layout_constraintVertical_bias="0.498" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:background="@drawable/test_coffee"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewSelected"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewSelected"
+        app:layout_constraintStart_toStartOf="@+id/imageViewSelected"
+        app:layout_constraintTop_toTopOf="@+id/imageViewSelected"
+        app:layout_constraintVertical_bias="0.535" />
 
     <ImageView
         android:id="@+id/qrCodeImageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginEnd="20dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginEnd="100dp"
         android:contentDescription="@string/placeholder"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewSelected"
         app:layout_constraintEnd_toEndOf="@+id/button2"
-        app:layout_constraintTop_toTopOf="@+id/imageViewSelected"
-        app:srcCompat="@drawable/mine_the_bill"
-        tools:srcCompat="@drawable/mine_the_bill" />
+        app:layout_constraintTop_toTopOf="@+id/imageViewSelected" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/test_qrcode"
+        app:layout_constraintBottom_toBottomOf="@+id/qrCodeImageView"
+        app:layout_constraintEnd_toEndOf="@+id/qrCodeImageView"
+        app:layout_constraintStart_toStartOf="@+id/qrCodeImageView"
+        app:layout_constraintTop_toTopOf="@+id/qrCodeImageView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/nameTextViewQR"
@@ -68,10 +87,10 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:contentDescription="@string/placeholder"
-        android:text="@string/placeholder"
+        android:text="Coffee"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="30sp"
+        android:textSize="60dp"
         app:layout_constraintEnd_toEndOf="@+id/button2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/button2"
@@ -81,17 +100,18 @@
         android:id="@+id/discountTextViewQR"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#F5EFE6"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:background="#C20000"
         android:contentDescription="@string/placeholder"
-        android:text="@string/placeholder"
+        android:text="- 20.0 %"
         android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/nameTextViewQR"
+        android:textColor="#FFFFFF"
+        android:textSize="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="@+id/view"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/nameTextViewQR"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextViewQR" />
+        app:layout_constraintStart_toStartOf="@+id/view" />
 
     <TextView
         android:id="@+id/expiryTextViewQR"
@@ -104,7 +124,7 @@
         android:text="@string/expiriration_date_2"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="20sp"
+        android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="@+id/button2"
         app:layout_constraintHorizontal_bias="1.0"
