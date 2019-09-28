@@ -29,16 +29,10 @@ public class QrCodePresentation extends Presentation {
 
     // MARK: - Properties
 
-    private String TAG = "GenerateQRCode";
     private ImageView qrImageView;
     private ImageView itemImageView;
     private TextView discountTextView;
     private TextView itemTextView;
-
-    private String inputValue;
-    private Bitmap bitmap;
-    private QRGEncoder qrgEncoder;
-    private Context mContext;
 
     private QRReceiver receiver;
 
@@ -50,12 +44,11 @@ public class QrCodePresentation extends Presentation {
     public QrCodePresentation(Context outerContext, Display display) {
         super(outerContext, display);
 
-        mContext = outerContext;
-        // TODO setup with product and generate QR code
-
-
-
-}
+        // Start listening for discounts
+        receiver = new QRReceiver(new Handler());
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, new IntentFilter("GET_PRODUCT_QR_CODE"));
+        System.out.println("QrCodePresentation: I am LISTENING for qr codes");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,31 +56,6 @@ public class QrCodePresentation extends Presentation {
         setContentView(R.layout.activity_qr_code_presentation);
 
         qrImageView = (ImageView) findViewById(R.id.QR_Image);
-
-        // Start listening for discounts
-        receiver = new QrCodePresentation.QRReceiver(new Handler());
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, new IntentFilter("GET_PRODUCT_DISCOUNTS"));
-        System.out.println("QrCodePresentation: I am LISTENING for qrcodes");
-
-        WindowManager manager = (WindowManager) mContext.getSystemService(WINDOW_SERVICE);
-        Display display = manager.getDefaultDisplay();
-        Point point = new Point();
-        display.getSize(point);
-        int width = point.x;
-        int height = point.y;
-        int smallerDimension = width < height ? width : height;
-        smallerDimension = smallerDimension * 3 / 4;
-
-        qrgEncoder = new QRGEncoder(
-                inputValue, null,
-                QRGContents.Type.TEXT,
-                smallerDimension);
-        try {
-            bitmap = qrgEncoder.encodeAsBitmap();
-            qrImageView.setImageBitmap(bitmap);
-        } catch (WriterException e) {
-            Log.v(TAG, e.toString());
-        }
 
     }
 
@@ -114,15 +82,15 @@ public class QrCodePresentation extends Presentation {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            if(intent.getAction().equals("GET_PRODUCT_QRCODE"))
+            if(intent.getAction().equals("GET_PRODUCT_QR_CODE"))
             {
-                final Bitmap qrcode = (Bitmap) intent.getParcelableExtra("qrcode");
+                final Bitmap qrCode = intent.getParcelableExtra("qrCode");
                 System.out.println("QRReceiver: I got a qr code");
 
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        updateUI(qrcode);
+                        updateUI(qrCode);
                     }
                 });
             }

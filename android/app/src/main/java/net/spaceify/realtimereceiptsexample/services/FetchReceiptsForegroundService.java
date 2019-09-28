@@ -192,7 +192,7 @@ public class FetchReceiptsForegroundService extends Service {
                 while ((responseLine = br.readLine()) != null) {
                     response.append(responseLine.trim());
                 }
-                handleDiscounts(response.toString());
+                handleDiscounts(transactionId, response.toString());
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -203,13 +203,20 @@ public class FetchReceiptsForegroundService extends Service {
         }
     }
 
-    private void handleDiscounts(String text) {
+    private void handleDiscounts(final String transactionId, final String text) {
         try {
             JSONObject suggestions = new JSONObject(text);
             JSONArray discountArray = suggestions.getJSONArray("offers");
             ArrayList<Discount> discounts = new ArrayList<Discount>();
             for(int i = 0; i < discountArray.length(); i++){
-                discounts.add(new Discount(discountArray.getJSONObject(i).getString("sku"),discountArray.getJSONObject(i).getDouble("discount")));
+                discounts.add(new Discount(
+                        transactionId,
+                        discountArray.getJSONObject(i).getString("sku"),
+                        discountArray.getJSONObject(i).getDouble("discount"),
+                        discountArray.getJSONObject(i).getString("name"),
+                        discountArray.getJSONObject(i).getString("picture_link"),
+                        discountArray.getJSONObject(i).getDouble("price")
+                ));
             }
             sendDiscounts(discounts);
         } catch (JSONException e) {
