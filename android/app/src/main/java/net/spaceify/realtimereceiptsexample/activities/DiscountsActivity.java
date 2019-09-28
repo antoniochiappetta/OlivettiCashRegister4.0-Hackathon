@@ -1,5 +1,6 @@
 package net.spaceify.realtimereceiptsexample.activities;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -196,6 +197,10 @@ public class DiscountsActivity extends AppCompatActivity {
     }
 
     // MARK: - Actions
+
+    public void dismissApp(View v) {
+        moveTaskToBack(true);
+    }
 
     public void selectProduct1(View v) {
         product1Button.setBackgroundColor(Color.parseColor("#F1E5CF"));
