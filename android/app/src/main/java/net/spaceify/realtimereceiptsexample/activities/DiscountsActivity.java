@@ -183,26 +183,10 @@ public class DiscountsActivity extends AppCompatActivity {
             String urldisplay = urls[0];
             Bitmap mIcon11 = null;
             try {
-                /////////////////
                 BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inJustDecodeBounds = true;
-
                 InputStream in = new java.net.URL(urldisplay).openStream();
+                options.inSampleSize = 4;
                 mIcon11 = BitmapFactory.decodeStream(in, null, options);
-
-                int scalingFactor = 1;
-                int maxMeasure = Math.max(options.outHeight, options.outWidth);
-
-                while (maxMeasure / scalingFactor >= 4096) {
-                    scalingFactor *= 2;
-                }
-
-                options.inSampleSize = scalingFactor;
-                options.inJustDecodeBounds = false;
-
-                mIcon11 = BitmapFactory.decodeStream(in, null, options);
-
-                ////////////////////
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();
