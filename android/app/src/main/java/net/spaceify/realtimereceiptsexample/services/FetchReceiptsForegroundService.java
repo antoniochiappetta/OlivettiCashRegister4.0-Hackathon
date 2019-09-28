@@ -202,7 +202,7 @@ public class FetchReceiptsForegroundService extends Service {
         try {
             JSONObject suggestions = new JSONObject(text);
             JSONArray discountArray = suggestions.getJSONArray("offers");
-            List<Discount> discounts = new ArrayList<Discount>();
+            ArrayList<Discount> discounts = new ArrayList<Discount>();
             for(int i = 0; i < discountArray.length(); i++){
                 discounts.add(new Discount(discountArray.getJSONObject(i).getString("sku"),discountArray.getJSONObject(i).getDouble("discount")));
             }
@@ -212,16 +212,11 @@ public class FetchReceiptsForegroundService extends Service {
         }
     }
 
-    private final void sendDiscounts(final List<Discount> items) {
-        Handler mainHandler = new Handler(getMainLooper());
-        mainHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                /**
-                 * TODO Send discounts to MainActivity
-                 */
-            }
-        });
+    private final void sendDiscounts(final ArrayList<Discount> items) {
+        Intent sendDiscounts = new Intent();
+        sendDiscounts.setAction("GET_PRODUCT_DISCOUNTS");
+        sendDiscounts.putParcelableArrayListExtra("discounts", items);
+        sendBroadcast(sendDiscounts);
     }
 
 }
