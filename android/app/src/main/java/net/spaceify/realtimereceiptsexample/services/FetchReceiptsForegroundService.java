@@ -15,7 +15,9 @@ import android.util.Log;
 
 import net.spaceify.realtimereceiptsexample.R;
 import net.spaceify.realtimereceiptsexample.MainActivity;
+import net.spaceify.realtimereceiptsexample.activities.DiscountsActivity;
 import net.spaceify.realtimereceiptsexample.models.Discount;
+import net.spaceify.realtimereceiptsexample.singletons.ConcurrencyManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -117,6 +119,8 @@ public class FetchReceiptsForegroundService extends Service {
 
                 Log.d(TAG, "Websocket connection succeeded");
 
+                System.out.println("FetchReceiptsForegroundService: I am LISTENING for receipts");
+
                 // Register as receipt listener, 11 is the location id for OIH1 and 1 is the sequence number of the JSONRCP call
 
                 webSocket.send("{\"jsonrpc\": \"2.0\", \"method\": \"addReceiptListener\", \"params\": [\"hackathon\", 11, \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImhhY2thdGhvbiIsInVzZXJUeXBlIjoicmVndWxhciIsImlhdCI6MTU2OTMzNDk0Mn0.wf6JYu6zt0gCxNPMPRWFae9vvlZrj9eaRAgXJIDP3kM\"], \"id\": \"1\"}");
@@ -158,9 +162,10 @@ public class FetchReceiptsForegroundService extends Service {
                 SKUs.add(products.getJSONObject(i).getString("productSku"));
             }
             String id = receipt.getJSONArray("params").getJSONObject(2).getString("receiptId");
+            System.out.println("FetchReceiptsForegroundService: I got a receipts with a LIST of products");
             sendReceipt(id,SKUs);
         } catch (JSONException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         }
     }
 
@@ -213,6 +218,18 @@ public class FetchReceiptsForegroundService extends Service {
     }
 
     private final void sendDiscounts(final ArrayList<Discount> items) {
+        Intent bringActivityToFront = new Intent(getApplicationContext(), DiscountsActivity.class);
+        bringActivityToFront.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        bringActivityToFront.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+        startActivity(bringActivityToFront);
+        synchronized (ConcurrencyManager.sharedLock) {
+            try {
+                ConcurrencyManager.sharedLock.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         Intent sendDiscounts = new Intent();
         sendDiscounts.setAction("GET_PRODUCT_DISCOUNTS");
         sendDiscounts.putParcelableArrayListExtra("discounts", items);

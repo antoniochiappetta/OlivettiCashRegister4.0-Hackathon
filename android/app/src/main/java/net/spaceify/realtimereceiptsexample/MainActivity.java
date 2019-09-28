@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 
+import net.spaceify.realtimereceiptsexample.activities.DiscountsActivity;
 import net.spaceify.realtimereceiptsexample.models.Discount;
 import net.spaceify.realtimereceiptsexample.services.FetchReceiptsForegroundService;
 import net.spaceify.realtimereceiptsexample.R;
@@ -33,11 +34,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-    // MARK: - Properties
-
-    private TextView textView = null;
-    private DiscountsReceiver receiver;
-
     // MARK: - Lifecycle
 
     @Override
@@ -45,15 +41,12 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize text view
-        this.textView = (TextView) findViewById(R.id.textView);
-
         // Start listening for receipts in the foreground
         startFetchService();
 
-        // Start listening for discounts
-        receiver = new DiscountsReceiver();
-        registerReceiver(receiver, new IntentFilter("GET_PRODUCT_DISCOUNTS"));
+        // Start discount activity
+        Intent discountActivity = new Intent(getApplicationContext(), DiscountsActivity.class);
+        startActivity(discountActivity);
     }
 
     // MARK: - Fetch Receipts
@@ -67,22 +60,6 @@ public class MainActivity extends Activity {
     public void stopFetchService() {
         Intent serviceIntent = new Intent(this, FetchReceiptsForegroundService.class);
         stopService(serviceIntent);
-    }
-
-    // MARK: - Listen to Discounts
-
-    class DiscountsReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            if(intent.getAction().equals("GET_PRODUCT_DISCOUNTS"))
-            {
-                ArrayList<Discount> discounts = intent.getParcelableArrayListExtra("discounts");
-                System.out.println(discounts);
-            }
-        }
-
     }
 
 }
