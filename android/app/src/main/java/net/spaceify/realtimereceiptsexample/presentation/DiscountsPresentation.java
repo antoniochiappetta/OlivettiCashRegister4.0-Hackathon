@@ -111,7 +111,6 @@ public class DiscountsPresentation extends Presentation {
     private void updateUI(ArrayList<Discount> items) {
 
         this.product1NameTextView.setText(items.get(0).getName());
-        System.out.println(items.get(0).getPictureLink());
         this.product1DiscountTextView.setText("- " + items.get(0).getDiscount() + " %");
         new DownloadImageTask(this.product1ImageView).execute(items.get(0).getPictureLink());
 

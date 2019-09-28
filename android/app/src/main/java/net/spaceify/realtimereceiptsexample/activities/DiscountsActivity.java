@@ -58,6 +58,7 @@ public class DiscountsActivity extends AppCompatActivity {
 
     // MARK: - Properties
 
+    private Discount selectedProduct;
     private Discount product1;
     private Discount product2;
     private Discount product3;
@@ -292,15 +293,16 @@ public class DiscountsActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String discountSku) {
-            handleDiscountSku(discountSku);
+            handleDiscountSku(selectedProduct,discountSku);
         }
     }
 
     private void performSelection(@NotNull Discount product) {
+        this.selectedProduct = product;
         new PerformSelection().execute(product.getTransactionId(), product.getSku(), String.valueOf(product.getDiscount()));
     }
 
-    private void handleDiscountSku(String discountSku) {
+    private void handleDiscountSku(Discount product, String discountSku) {
         // Generate the QR code
         WindowManager manager = (WindowManager) getApplicationContext().getSystemService(WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
@@ -322,6 +324,7 @@ public class DiscountsActivity extends AppCompatActivity {
             qrCodePresentation.show();
             Intent sendQrCode = new Intent();
             sendQrCode.setAction("GET_PRODUCT_QR_CODE");
+            sendQrCode.putExtra("discount", product);
             sendQrCode.putExtra("qrCode", bitmap);
             sendBroadcast(sendQrCode);
         } catch (WriterException e) {
