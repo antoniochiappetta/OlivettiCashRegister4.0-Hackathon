@@ -1,10 +1,7 @@
-# Realtime Receipts API Example for Android
+# MineTheBill @OlivettiCashRegister4.0-Hackathon
 
- A Simple example app for demonstrating how to get new receipts in real time from the SelfScanner JSON-RPC API.
- 
-### Usage ###
- 
-  * Start the App and go to https://my.selfscanner.net with your web browser.
-  * Log in with username: hackathon, password: helsinki.
-  * In the location OIH1, navigate to Cash Registers -> OIH1 -> USE and sell some products using "Debug Pay"
-  * The receipts should appear in the TextView of this app in real-time
+Are you the owner of a small shop? Would you like to increase customer satisfaction and in a cheap, smart and seamless way?
+
+MineTheBill is an Android app 📱for Olivetti's Smart Cash Register that, at every purchase inside a shop, generates a series of recommended discounts 💰based on the purchase history to improve customer loyalty and engagement.
+
+The Android app invokes our back-end API to communicate with a recommender system, capable of keeping track of the current and all the previous receipts emitted in the shop.
