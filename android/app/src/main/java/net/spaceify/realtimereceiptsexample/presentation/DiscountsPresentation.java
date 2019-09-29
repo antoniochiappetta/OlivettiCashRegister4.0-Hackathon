@@ -124,8 +124,10 @@ public class DiscountsPresentation extends Presentation {
             String urldisplay = urls[0];
             Bitmap mIcon11 = null;
             try {
+                BitmapFactory.Options options = new BitmapFactory.Options();
                 InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
+                options.inSampleSize = 4;
+                mIcon11 = BitmapFactory.decodeStream(in, null, options);
             } catch (Exception e) {
                 Log.e("Error", e.getMessage());
                 e.printStackTrace();
