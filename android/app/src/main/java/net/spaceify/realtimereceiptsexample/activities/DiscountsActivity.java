@@ -154,6 +154,8 @@ public class DiscountsActivity extends AppCompatActivity {
 
     private void updateUI(ArrayList<Discount> items) {
 
+        discountsPresentation.updateUI(items);
+
         this.product1 = items.get(0);
         this.product2 = items.get(1);
         this.product3 = items.get(2);
@@ -306,11 +308,7 @@ public class DiscountsActivity extends AppCompatActivity {
             // Send the selection to the presentation activity
             discountsPresentation.hide();
             qrCodePresentation.show();
-            Intent sendQrCode = new Intent();
-            sendQrCode.setAction("GET_PRODUCT_QR_CODE");
-            sendQrCode.putExtra("discount", product);
-            sendQrCode.putExtra("qrCode", bitmap);
-            sendBroadcast(sendQrCode);
+            qrCodePresentation.updateUI(bitmap,product);
         } catch (WriterException e) {
             Log.v("GenerateQRCode", e.toString());
         }

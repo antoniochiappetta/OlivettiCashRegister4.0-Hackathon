@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".activities.DiscountsActivity">
 
+    <View
+        android:id="@+id/background_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <Button
         android:id="@+id/button1"
         style="@style/Widget.AppCompat.Button.Borderless"
@@ -61,12 +72,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="#00F5EFE6"
+        android:background="#CD1A28"
         android:contentDescription="@string/placeholder"
         android:text="@string/placeholder"
         android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="15sp"
+        android:textColor="#ffffff"
+        android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView1"
         app:layout_constraintEnd_toEndOf="@+id/imageView1" />
 
@@ -162,12 +173,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="#00F5EFE6"
+        android:background="#CD1A28"
         android:contentDescription="@string/placeholder"
         android:text="@string/placeholder"
         android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="15sp"
+        android:textColor="#ffffff"
+        android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="@+id/imageView2" />
 
@@ -225,12 +236,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="#00F5EFE6"
+        android:background="#CD1A28"
         android:contentDescription="@string/placeholder"
         android:text="@string/placeholder"
         android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="15sp"
+        android:textColor="#ffffff"
+        android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="@+id/imageView3" />
 
@@ -250,16 +261,5 @@
         app:layout_constraintEnd_toEndOf="@+id/button3"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/button3" />
-
-    <View
-        android:id="@+id/background_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

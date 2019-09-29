@@ -62,11 +62,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="#00F5EFE6"
+        android:background="#CD1A28"
         android:contentDescription="@string/placeholder"
         android:text="@string/placeholder"
         android:textAlignment="center"
-        android:textSize="15sp"
+        android:textColor="#ffffff"
+        android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView1"
         app:layout_constraintEnd_toEndOf="@+id/imageView1" />
 
@@ -135,11 +136,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="#00F5EFE6"
+        android:background="#CD1A28"
         android:contentDescription="@string/placeholder"
         android:text="@string/placeholder"
         android:textAlignment="center"
-        android:textSize="15sp"
+        android:textColor="#ffffff"
+        android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="@+id/imageView2" />
 
@@ -204,11 +206,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:background="#00F5EFE6"
+        android:background="#CD1A28"
         android:contentDescription="@string/placeholder"
         android:text="@string/placeholder"
         android:textAlignment="center"
-        android:textSize="15sp"
+        android:textColor="#ffffff"
+        android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="@+id/imageView3" />
 
@@ -235,7 +238,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
-        android:backgroundTint="#AA0000"
+        android:backgroundTint="#CD1A28"
         android:onClick="dismissApp"
         android:text="Next Purchase"
         android:textColor="#FFFFFF"

@@ -8,12 +8,14 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -35,13 +37,11 @@ public class QrCodePresentation extends Presentation {
 
     // MARK: - Properties
 
-    private ImageView qrImageView;
-    private ImageView productImageView;
+    private View qrView;
+    private View productView;
     private TextView productNameTextView;
     private TextView productDiscountTextView;
     private TextView productExpiryTextView;
-
-    private QRReceiver receiver;
 
 
     // TODO view outlets
@@ -50,11 +50,6 @@ public class QrCodePresentation extends Presentation {
 
     public QrCodePresentation(Context outerContext, Display display) {
         super(outerContext, display);
-
-        // Start listening for discounts
-        receiver = new QRReceiver(new Handler());
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, new IntentFilter("GET_PRODUCT_QR_CODE"));
-        System.out.println("QrCodePresentation: I am LISTENING for qr codes");
     }
 
     @Override
@@ -68,8 +63,8 @@ public class QrCodePresentation extends Presentation {
     }
 
     private void setupProductViews() {
-        this.qrImageView = (ImageView) findViewById(R.id.qrCodeImageView);
-        this.productImageView = (ImageView) findViewById(R.id.imageViewSelected);
+        this.qrView = (View) findViewById(R.id.qrCodeView);
+        this.productView = (View) findViewById(R.id.viewSelected);
         this.productNameTextView = (TextView) findViewById(R.id.nameTextViewQR);
         this.productDiscountTextView = (TextView) findViewById(R.id.discountTextViewQR);
         this.productExpiryTextView = (TextView) findViewById(R.id.expiryTextViewQR);
@@ -77,17 +72,17 @@ public class QrCodePresentation extends Presentation {
 
     // MARK: - Update UI
 
-    private void updateUI(Bitmap qrcode, Discount product) {
-        this.qrImageView.setImageBitmap(qrcode);
+    public void updateUI(Bitmap qrcode, Discount product) {
+        this.qrView.setBackground(new BitmapDrawable(getResources(), qrcode));
         this.productNameTextView.setText(product.getName());
         this.productDiscountTextView.setText("- " + product.getDiscount() + " %");
-        new DownloadImageTask(this.productImageView).execute(product.getPictureLink());
+        new DownloadImageTask(this.productView).execute(product.getPictureLink());
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
+        View bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
+        public DownloadImageTask(View bmImage) {
             this.bmImage = bmImage;
         }
 
@@ -105,41 +100,7 @@ public class QrCodePresentation extends Presentation {
         }
 
         protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
+            bmImage.setBackground(new BitmapDrawable(getResources(), result));
         }
-    }
-
-    // MARK: - Listen to QR codes
-
-    class QRReceiver extends BroadcastReceiver {
-
-        // MARK: - Properties
-
-        private final Handler handler; // Handler used to execute code on the UI thread
-
-        // MARK: - Initialization
-
-        public QRReceiver(Handler handler) {
-            this.handler = handler;
-        }
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            if(intent.getAction().equals("GET_PRODUCT_QR_CODE"))
-            {
-                final Bitmap qrCode = intent.getParcelableExtra("qrCode");
-                final Discount discount = intent.getParcelableExtra("discount");
-                System.out.println("QRReceiver: I got a qr code");
-
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateUI(qrCode,discount);
-                    }
-                });
-            }
-        }
-
     }
 }

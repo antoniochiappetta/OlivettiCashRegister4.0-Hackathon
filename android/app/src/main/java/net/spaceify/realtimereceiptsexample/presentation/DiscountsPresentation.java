@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
@@ -33,40 +34,29 @@ public class DiscountsPresentation extends Presentation {
     // MARK: - Properties
 
     private Button product1Button;
-    private ImageView product1ImageView;
+    private View product1View;
     private TextView product1NameTextView;
     private TextView product1DiscountTextView;
     private TextView product1ExpiryTextView;
 
 
     private Button product2Button;
-    private ImageView product2ImageView;
+    private View product2View;
     private TextView product2NameTextView;
     private TextView product2DiscountTextView;
     private TextView product2ExpiryTextView;
 
 
     private Button product3Button;
-    private ImageView product3ImageView;
+    private View product3View;
     private TextView product3NameTextView;
     private TextView product3DiscountTextView;
     private TextView product3ExpiryTextView;
-
-    private DiscountsReceiver receiver;
 
     // MARK: - Lifecycle
 
     public DiscountsPresentation(Context outerContext, Display display) {
         super(outerContext, display);
-
-
-        // Start listening for discounts
-        receiver = new DiscountsReceiver(new Handler());
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, new IntentFilter("GET_PRODUCT_DISCOUNTS"));
-        System.out.println("DiscountsPresentation: I am LISTENING for discounts");
-        synchronized (ConcurrencyManager.sharedLock) {
-            ConcurrencyManager.sharedLock.notify();
-        }
     }
 
     // MARK: - Initialization
@@ -84,7 +74,7 @@ public class DiscountsPresentation extends Presentation {
 
     private void setupProduct1Views() {
         this.product1Button = (Button) findViewById(R.id.button1);
-        this.product1ImageView = (ImageView) findViewById(R.id.imageView1);
+        this.product1View = (View) findViewById(R.id.view1);
         this.product1NameTextView = (TextView) findViewById(R.id.nameTextView1);
         this.product1DiscountTextView = (TextView) findViewById(R.id.discountTextView1);
         this.product1ExpiryTextView = (TextView) findViewById(R.id.expiryTextView1);
@@ -92,7 +82,7 @@ public class DiscountsPresentation extends Presentation {
 
     private void setupProduct2Views() {
         this.product2Button = (Button) findViewById(R.id.button2);
-        this.product2ImageView = (ImageView) findViewById(R.id.imageView2);
+        this.product2View = (View) findViewById(R.id.view2);
         this.product2NameTextView = (TextView) findViewById(R.id.nameTextView2);
         this.product2DiscountTextView = (TextView) findViewById(R.id.discountTextView2);
         this.product2ExpiryTextView = (TextView) findViewById(R.id.expiryTextView2);
@@ -100,7 +90,7 @@ public class DiscountsPresentation extends Presentation {
 
     private void setupProduct3Views() {
         this.product3Button = (Button) findViewById(R.id.button3);
-        this.product3ImageView = (ImageView) findViewById(R.id.imageView3);
+        this.product3View = (View) findViewById(R.id.view3);
         this.product3NameTextView = (TextView) findViewById(R.id.nameTextView3);
         this.product3DiscountTextView = (TextView) findViewById(R.id.discountTextView3);
         this.product3ExpiryTextView = (TextView) findViewById(R.id.expiryTextView3);
@@ -108,25 +98,25 @@ public class DiscountsPresentation extends Presentation {
 
     // MARK: - Update UI
 
-    private void updateUI(ArrayList<Discount> items) {
+    public void updateUI(ArrayList<Discount> items) {
 
         this.product1NameTextView.setText(items.get(0).getName());
         this.product1DiscountTextView.setText("- " + items.get(0).getDiscount() + " %");
-        new DownloadImageTask(this.product1ImageView).execute(items.get(0).getPictureLink());
+        new DownloadImageTask(this.product1View).execute(items.get(0).getPictureLink());
 
         this.product2NameTextView.setText(items.get(1).getName());
         this.product2DiscountTextView.setText("- " + items.get(1).getDiscount() + " %");
-        new DownloadImageTask(this.product2ImageView).execute(items.get(1).getPictureLink());
+        new DownloadImageTask(this.product2View).execute(items.get(1).getPictureLink());
 
         this.product3NameTextView.setText(items.get(2).getName());
         this.product3DiscountTextView.setText("- " + items.get(2).getDiscount() + " %");
-        new DownloadImageTask(this.product3ImageView).execute(items.get(2).getPictureLink());
+        new DownloadImageTask(this.product3View).execute(items.get(2).getPictureLink());
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
+        View bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
+        public DownloadImageTask(View bmImage) {
             this.bmImage = bmImage;
         }
 
@@ -144,41 +134,7 @@ public class DiscountsPresentation extends Presentation {
         }
 
         protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
+            bmImage.setBackground(new BitmapDrawable(getResources(), result));
         }
-    }
-
-    // MARK: - Listen to Discounts
-
-    class DiscountsReceiver extends BroadcastReceiver {
-
-        // MARK: - Properties
-
-        private final Handler handler; // Handler used to execute code on the UI thread
-
-        // MARK: - Initialization
-
-        public DiscountsReceiver(Handler handler) {
-            this.handler = handler;
-        }
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            if(intent.getAction().equals("GET_PRODUCT_DISCOUNTS"))
-            {
-                final ArrayList<Discount> discounts = intent.getParcelableArrayListExtra("discounts");
-                System.out.println("DiscountsReceiver: I got a LIST discounts");
-                System.out.println(discounts);
-
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateUI(discounts);
-                    }
-                });
-            }
-        }
-
     }
 }
