@@ -1,0 +1,3 @@
+[submodule "recsys"]
+	path = recsys
+	url = git@github.com:keni7385/OlivettiCashRegister4.0-Hackathon-RecSys
