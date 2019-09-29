@@ -179,7 +179,7 @@ public class FetchReceiptsForegroundService extends Service {
             con.setDoOutput(true);
             JSONObject body = new JSONObject();
             body.put("transactionId", transactionId);
-            body.put("transactionList", items);
+            body.put("transactionList", new JSONArray(items));
             String jsonInputString = body.toString();
             try(OutputStream os = con.getOutputStream()) {
                 byte[] input = jsonInputString.getBytes("utf-8");
