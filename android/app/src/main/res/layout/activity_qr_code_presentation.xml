@@ -46,11 +46,11 @@
         app:layout_constraintVertical_bias="0.498" />
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/viewSelected"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="4dp"
-        android:background="@drawable/test_coffee"
+        android:background="@drawable/mine_the_bill"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewSelected"
         app:layout_constraintEnd_toEndOf="@+id/imageViewSelected"
         app:layout_constraintStart_toStartOf="@+id/imageViewSelected"
@@ -69,10 +69,10 @@
         app:layout_constraintTop_toTopOf="@+id/imageViewSelected" />
 
     <View
-        android:id="@+id/view2"
+        android:id="@+id/qrCodeView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/test_qrcode"
+        android:background="@drawable/mine_the_bill"
         app:layout_constraintBottom_toBottomOf="@+id/qrCodeImageView"
         app:layout_constraintEnd_toEndOf="@+id/qrCodeImageView"
         app:layout_constraintStart_toStartOf="@+id/qrCodeImageView"
@@ -87,7 +87,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:contentDescription="@string/placeholder"
-        android:text="Coffee"
+        android:text="@string/placeholder"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="60dp"
@@ -104,14 +104,14 @@
         android:layout_marginEnd="50dp"
         android:background="#C20000"
         android:contentDescription="@string/placeholder"
-        android:text="- 20.0 %"
+        android:text="@string/placeholder"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="@+id/view"
+        app:layout_constraintBottom_toTopOf="@+id/viewSelected"
+        app:layout_constraintEnd_toEndOf="@+id/viewSelected"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/view" />
+        app:layout_constraintStart_toStartOf="@+id/viewSelected" />
 
     <TextView
         android:id="@+id/expiryTextViewQR"
